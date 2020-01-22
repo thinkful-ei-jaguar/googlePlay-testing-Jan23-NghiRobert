@@ -14,13 +14,23 @@ app.use(cors());
 
 app.get('/apps', (req, res) => {
   const {sort, genres} = req.query;
-  const filteredData = [ ...data ];
+  let filteredData = [ ...data ];
+  const genresArray = ['Action', 'Puzzle', 'Strategy', 'Casual', 'Arcade', 'Card']
   // sort for rating and app
   if(sort === 'Rating' || sort === 'App') {
 
     filteredData.sort((a,b) =>
       a[sort] < b[sort] ? -1 : 1);
   }
+
+  if(genres) {
+    if(!genresArray.includes(genres)){
+      return res.status(400).json({error:"Genre has to be one of the following: Action,Puzzle,Strategy,Casual,Arcade,Card"})
+    }
+    
+      filteredData= filteredData.filter(each=>each.Genres.includes(genres))
+   } 
+
 
   // by default return data
   res.json(filteredData);
