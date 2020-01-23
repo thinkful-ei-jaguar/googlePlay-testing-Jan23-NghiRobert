@@ -19,11 +19,12 @@ app.get('/apps', (req, res) => {
 
   // genre filtering
   if(genres) {
-    if(!genresArray.includes(genres)){
+    if(!genresArray.find(each => each.toLowerCase().includes(genres.toLowerCase()))){
       return res.status(400).json({error:'Genre has to be one of the following: Action,Puzzle,Strategy,Casual,Arcade,Card'});
     }
     
-    filteredData = filteredData.filter(each=>each.Genres.includes(genres));
+    filteredData = filteredData.filter(each=>
+      each.Genres.toLowerCase().includes(genres.toLowerCase()));
   } 
   // sort for rating and app
   if(sort) {
@@ -40,6 +41,4 @@ app.get('/apps', (req, res) => {
   res.json(filteredData);
 });
 
-app.listen(8001, () => {
-  console.log('listening on port 8001');
-});
+module.exports = app;

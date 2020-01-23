@@ -2,10 +2,11 @@
   "name": "googlePlay-Jan22-NghiKraig",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app"
+    "dev": "nodemon server.js",
+    "test": "mocha './app.test.js'",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,10 @@
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.0.0",
+    "supertest": "^4.0.2"
   }
 }
