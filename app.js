@@ -18,6 +18,9 @@ app.get('/apps', (req, res) => {
   const genresArray = ['Action', 'Puzzle', 'Strategy', 'Casual', 'Arcade', 'Card'];
 
   // genre filtering
+  if(genres===''){
+    return res.status(400).json({error:'Please enter a genre.'});
+  }
   if(genres) {
     if(!genresArray.find(each => each.toLowerCase().includes(genres.toLowerCase()))){
       return res.status(400).json({error:'Genre has to be one of the following: Action,Puzzle,Strategy,Casual,Arcade,Card'});
