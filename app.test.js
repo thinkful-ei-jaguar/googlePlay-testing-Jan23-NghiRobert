@@ -74,6 +74,59 @@ describe('Testing App module', () => {
   });
 
 
+  it('GET /sort with valid order on Apps should return 200 with JSON',()=>{
+	const query="sort=App";
+	return supertest(app)
+	.get('/apps')
+	.query(query)
+	.expect(200)
+	.expect('Content-Type', /json/)
+	.then(res => {
+		expect(res.body).to.be.an('array');
+		let sorted = true;
+		let i=0;
+		while (i < res.body.length - 1) {
+			const APPAtI = res.body[i];
+			const APPAtIPlus1 = res.body[i + 1];
+			if (APPAtIPlus1.APP < APPAtI.APP) {
+			  sorted = false;
+			  break;
+			}
+			i++;
+		  }
+		  expect(sorted).to.be.true;
+	});
+  })
+  it('GET /sort with valid order on rating for apps should return 200 with JSON',()=>{
+	const query="sort=Rating";
+	return supertest(app)
+	.get('/apps')
+	.query(query)
+	.expect(200)
+	.expect('Content-Type', /json/)
+	.then(res => {
+		expect(res.body).to.be.an('array');
+		let sorted = true;
+		let i=0;
+		while (i < res.body.length - 1) {
+			const APPAtI = res.body[i];
+			const APPAtIPlus1 = res.body[i + 1];
+			if (APPAtIPlus1.Rating < APPAtI.Rating) {
+			  sorted = false;
+			  break;
+			}
+			i++;
+		  }
+		  expect(sorted).to.be.true;
+	});
+  })
+  it('GET /sort with invalid sort should return 400', () => {
+	const query = 'sort=cool2';
+	return supertest(app)
+	  .get('/apps')
+	  .query(query)
+	  .expect(400);
+	});
 });
 
 

@@ -35,10 +35,9 @@ app.get('/apps', (req, res) => {
     filteredData.sort((a,b) =>
       a[sort] < b[sort] ? -1 : 1);
   }
-
-
   // by default return data
   res.json(filteredData);
+
 });
 
 module.exports = app;
